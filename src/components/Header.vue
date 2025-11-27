@@ -42,5 +42,32 @@
 </template>
 
 <script>
-export default { name: "HeaderNav" }
+export default {
+  name: "HeaderNav",
+
+  mounted() {
+    const body = document.body;
+    const navMenu = document.querySelector("#navmenu");
+    const toggleBtn = document.querySelector(".mobile-nav-toggle");
+
+    // Toggle mobile nav
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("mobile-nav-active");
+      toggleBtn.classList.toggle("bi-list");
+      toggleBtn.classList.toggle("bi-x");
+    });
+
+    // Dropdown inside mobile nav
+    const dropdownLinks = navMenu.querySelectorAll(".dropdown > a");
+
+    dropdownLinks.forEach(link => {
+      link.addEventListener("click", (e) => {
+        if (body.classList.contains("mobile-nav-active")) {
+          e.preventDefault();
+          link.nextElementSibling.classList.toggle("dropdown-active");
+        }
+      });
+    });
+  }
+};
 </script>
